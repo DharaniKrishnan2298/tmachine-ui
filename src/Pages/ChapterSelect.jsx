@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import flyingRobo from "../Images/flyingrobo.png";
+import book from "../Images/book.png";
+import subtopicicon from "../Images/subtopic.png";
+import minisub from "../Images/minisub.png";
 import "./ChapterSelect.css";
 
 const Popup = ({ word, definition, onClose, onLanguageChange }) => {
@@ -171,17 +174,22 @@ const ChapterSelect = () => {
                     <div className="breadcrumb-item dropdown-container"
                         onMouseEnter={() => setOpenDropdown("chapter")}
                         onMouseLeave={() => setOpenDropdown("")}>
-                        📘 Chapter - {chapter.id}: {chapter.name} 
+                        <img src={book} alt="Book Icon" style={{ height: "20px", width: "20px" }} /><span> Chapter - {chapter.id}:{chapter.name}</span>
                         {openDropdown === "chapter" && (
                             <div className="dropdown-menu">
                                 {data.map(chap => (
                                     <div key={chap.id} className="dropdown-item">
-                                        <div onClick={() => {
-                                            navigate(`/chapter/${chap.id}`);
-                                            setActiveChapter(chap.id);
-                                        }}>
-                                            Chapter - {chap.id}: {chap.name} 
+                                        <div 
+                                            onClick={() => {
+                                                navigate(`/chapter/${chap.id}`);
+                                                setActiveChapter(chap.id);
+                                            }} 
+                                            style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
+                                        >
+                                            <img src={book} alt="Book Icon" style={{ height: "20px", width: "20px" }} />
+                                            <span>Chapter - {chap.id}: {chap.name}</span>
                                         </div>
+
                                         <div className="nested-dropdown">
                                             {chap.topics.map(top => (
                                                 <div key={top.id} className="nested-dropdown-item"
@@ -198,13 +206,13 @@ const ChapterSelect = () => {
                     <div className="breadcrumb-item dropdown-container"
                         onMouseEnter={() => setOpenDropdown("topic")}
                         onMouseLeave={() => setOpenDropdown("")}>
-                        📖 Topic - {topic.id}: {topic.name}
+                        <img src={subtopicicon} alt="Book Icon" style={{ height: "20px", width: "20px" }}/> Topic - {topic.id}: {topic.name}
                         {openDropdown === "topic" && (
                             <div className="dropdown-menu">
                                 {chapter.topics.map(top => (
                                     <div key={top.id} className="dropdown-item"
                                         onClick={() => navigate(`/topic/${top.id}`)}>
-                                        {top.name}
+                                        <img src={subtopicicon} alt="Book Icon" style={{ height: "20px", width: "20px" }}/><span>{top.name}</span>
                                     </div>
                                 ))}
                             </div>
@@ -213,13 +221,13 @@ const ChapterSelect = () => {
                     <div className="breadcrumb-item dropdown-container"
                         onMouseEnter={() => setOpenDropdown("subtopic")}
                         onMouseLeave={() => setOpenDropdown("")}>
-                        📄 Subtopic - {subtopic}
+                        <img src={minisub} alt="Book Icon" style={{ height: "20px", width: "20px" }}/><span>Subtopic - {subtopic}</span>
                         {openDropdown === "subtopic" && (
                             <div className="dropdown-menu">
                                 {topic.subtopics.map((sub, index) => (
                                     <div key={index} className="dropdown-item"
                                         onClick={() => navigate(`/chapter/${sub}`)}>
-                                        {sub}
+                                        <img src={minisub} alt="Book Icon" style={{ height: "20px", width: "20px" }}/><span>{sub}</span>
                                     </div>
                                 ))}
                             </div>
